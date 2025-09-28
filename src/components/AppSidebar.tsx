@@ -20,8 +20,10 @@ import {
   CloudSun,
   TrendingUp,
   Newspaper,
+  GraduationCap,
   Clock,
-  Star
+  Star,
+  UserCircle
 } from "lucide-react";
 
 const AppSidebar = () => {
@@ -34,11 +36,13 @@ const AppSidebar = () => {
     { title: "AI Chat", url: "/chat", icon: MessageCircle },
     { title: "Crop Advisor", url: "/crop-recommender", icon: Sprout },
     { title: "Pest & Disease Expert", url: "/pest-expert", icon: Bug },
-    { title: "Irrigation Planner", url: "/irrigation-planner", icon: Droplets },
+    { title: "Activity Tracker", url: "/activity-planner", icon: Clock },
     { title: "Weather Forecast", url: "/weather-forecast", icon: CloudSun },
     { title: "Soil & Fertilizer Guide", url: "/fertilizer-guide", icon: Settings },
     { title: "Market Analyst", url: "/market-analyst", icon: TrendingUp },
     { title: "Agricultural News", url: "/agriculture-news", icon: Newspaper },
+    { title: "Learning Hub", url: "/learning-hub", icon: GraduationCap },
+    { title: "Profile", url: "/profile", icon: UserCircle },
   ];
 
   const chatHistory = [

@@ -11,11 +11,13 @@ import Signup from "./pages/Signup";
 import Chat from "./pages/Chat";
 import CropRecommender from "./pages/CropRecommender";
 import FertilizerGuide from "./pages/FertilizerGuide";
-import IrrigationPlanner from "./pages/IrrigationPlanner";
+import DailyActivityTracker from "./pages/ActivityTracker";
 import PestExpert from "./pages/PestExpert";
 import WeatherForecast from "./pages/WeatherForecast";
 import MarketAnalyst from "./pages/MarketAnalyst";
 import AgricultureNews from "./pages/AgricultureNews";
+import Profile from "./pages/Profile";
+import LearningHub from "./pages/LearningHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,11 +35,13 @@ const App = () => (
           <Route path="/chat" element={<SidebarProvider><Layout><Chat /></Layout></SidebarProvider>} />
           <Route path="/crop-recommender" element={<SidebarProvider><Layout><CropRecommender /></Layout></SidebarProvider>} />
           <Route path="/fertilizer-guide" element={<SidebarProvider><Layout><FertilizerGuide /></Layout></SidebarProvider>} />
-          <Route path="/irrigation-planner" element={<SidebarProvider><Layout><IrrigationPlanner /></Layout></SidebarProvider>} />
+          <Route path="/activity-planner" element={<SidebarProvider><Layout><DailyActivityTracker /></Layout></SidebarProvider>} />
           <Route path="/pest-expert" element={<SidebarProvider><Layout><PestExpert /></Layout></SidebarProvider>} />
           <Route path="/weather-forecast" element={<SidebarProvider><Layout><WeatherForecast /></Layout></SidebarProvider>} />
           <Route path="/market-analyst" element={<SidebarProvider><Layout><MarketAnalyst /></Layout></SidebarProvider>} />
           <Route path="/agriculture-news" element={<SidebarProvider><Layout><AgricultureNews /></Layout></SidebarProvider>} />
+          <Route path="/learning-hub" element={<SidebarProvider><Layout><LearningHub /></Layout></SidebarProvider>} />
+          <Route path="/profile" element={<SidebarProvider><Layout><Profile /></Layout></SidebarProvider>} />
           <Route path="*" element={<SidebarProvider><Layout><NotFound /></Layout></SidebarProvider>} />
         </Routes>
       </BrowserRouter>

@@ -111,19 +111,19 @@ const CropRecommender = () => {
   const handleAutofill = async () => {
     try {
       console.log("Autofilling Data....")
-      // Get user's location
+     
       const position = await new Promise<GeolocationPosition>((resolve, reject) =>
         navigator.geolocation.getCurrentPosition(resolve, reject)
       );
       const { latitude, longitude } = position.coords;
 
-      // Call backend endpoint
+     
       const res = await fetch(`${API_BASE}/apiServices/autofill?lat=${latitude}&lng=${longitude}`);
       if (!res.ok) throw new Error("Failed to fetch autofill data");
 
       const data = await res.json();
 
-      // Autofill form fields
+   
       form.setValue("nitrogen", data.N.toString());
       form.setValue("phosphorus", data.P.toString());
       form.setValue("potassium", data.K.toString());

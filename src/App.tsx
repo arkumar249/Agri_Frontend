@@ -18,6 +18,8 @@ import MarketAnalyst from "./pages/MarketAnalyst";
 import AgricultureNews from "./pages/AgricultureNews";
 import Profile from "./pages/Profile";
 import LearningHub from "./pages/LearningHub";
+import WomenSHG from "./pages/WomenSHG";
+import EcosystemIntegration from "./pages/EcosystemIntegration";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,6 +43,8 @@ const App = () => (
           <Route path="/market-analyst" element={<SidebarProvider><Layout><MarketAnalyst /></Layout></SidebarProvider>} />
           <Route path="/agriculture-news" element={<SidebarProvider><Layout><AgricultureNews /></Layout></SidebarProvider>} />
           <Route path="/learning-hub" element={<SidebarProvider><Layout><LearningHub /></Layout></SidebarProvider>} />
+          <Route path="/women-shg" element={<SidebarProvider><Layout><WomenSHG /></Layout></SidebarProvider>} />
+          <Route path="/ecosystem-integration" element={<SidebarProvider><Layout><EcosystemIntegration /></Layout></SidebarProvider>} />
           <Route path="/profile" element={<SidebarProvider><Layout><Profile /></Layout></SidebarProvider>} />
           <Route path="*" element={<SidebarProvider><Layout><NotFound /></Layout></SidebarProvider>} />
         </Routes>

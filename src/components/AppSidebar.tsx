@@ -23,7 +23,8 @@ import {
   GraduationCap,
   Clock,
   Star,
-  UserCircle
+  UserCircle,
+  Heart, Package
 } from "lucide-react";
 
 const AppSidebar = () => {
@@ -40,8 +41,10 @@ const AppSidebar = () => {
     { title: "Weather Forecast", url: "/weather-forecast", icon: CloudSun },
     { title: "Soil & Fertilizer Guide", url: "/fertilizer-guide", icon: Settings },
     { title: "Market Analyst", url: "/market-analyst", icon: TrendingUp },
-    { title: "Agricultural News", url: "/agriculture-news", icon: Newspaper },
+    { title: "Schemes & News", url: "/agriculture-news", icon: Newspaper },
+    {title:"Farm Services" , url:"/ecosystem-integration", icon: Package},
     { title: "Learning Hub", url: "/learning-hub", icon: GraduationCap },
+    {title:"Women SHG Hub" , url:"/women-shg", icon: Heart},
     { title: "Profile", url: "/profile", icon: UserCircle },
   ];
 

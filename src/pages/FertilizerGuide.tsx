@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { 
-  Beaker, 
+import {
+  Beaker,
   Leaf,
   ShieldCheck,
   AlertTriangle,
@@ -22,7 +22,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 
-const API_BASE=import.meta.env.VITE_BACKEND_API_BASE;
+const API_BASE = import.meta.env.VITE_BACKEND_API_BASE;
 // --- schema ---
 const formSchema = z.object({
   temperature: z.string().min(1),
@@ -297,6 +297,29 @@ const FertilizerGuide = () => {
                     <FormMessage />
                   </FormItem>
                 )} />
+                <Button
+                  type="button"
+                  onClick={() => {
+                    form.setValue("temperature", "29");
+                    form.setValue("humidity", "63");
+                    form.setValue("rainfall", "145");
+                    form.setValue("soilPh", "6.5");
+                    form.setValue("nitrogen", "49");
+                    form.setValue("phosphorus", "53");
+                    form.setValue("potassium", "68");
+                    form.setValue("soilType", "loam");
+                    form.setValue("season", "summer");
+                    // Trigger form validation to ensure all fields are properly set
+                    form.trigger();
+                  }}
+                  variant="outline"
+                  className="w-full text-lg py-6 mb-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <Leaf className="w-5 h-5" />
+                    Auto Fill Data
+                  </div>
+                </Button>
 
                 <Button type="submit" disabled={isLoading} className="agricultural-button w-full text-lg py-6">
                   {isLoading ? (

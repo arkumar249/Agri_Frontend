@@ -160,6 +160,33 @@
   }
 }
 
+@layer utilities {
+  .bg-gradient-women {
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  }
+  .bg-gradient-lavender {
+    background: linear-gradient(135deg, #b993d6 0%, #8ca6db 100%);
+  }
+  .bg-gradient-mint {
+    background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+  }
+  .bg-mint-dark {
+    background-color: #1abc9c;
+  }
+  .bg-lavender-dark {
+    background-color: #7c6ee6;
+  }
+  .text-mint-dark {
+    color: #1abc9c;
+  }
+  .text-lavender-dark {
+    color: #7c6ee6;
+  }
+  .bg-gradient-rose {
+    background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%);
+  }
+}
+
 /* Animation keyframes */
 @keyframes slideInRight {
   from {

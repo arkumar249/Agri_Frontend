@@ -3,10 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { 
-  Thermometer, 
-  Droplets, 
-  Cloud, 
+import {
+  Thermometer,
+  Droplets,
+  Cloud,
   Beaker,
   Leaf,
   TrendingUp,
@@ -108,6 +108,36 @@ const CropRecommender = () => {
       season: "",
     },
   });
+  const handleAutofill = async () => {
+    try {
+      console.log("Autofilling Data....")
+      // Get user's location
+      const position = await new Promise<GeolocationPosition>((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      );
+      const { latitude, longitude } = position.coords;
+
+      // Call backend endpoint
+      const res = await fetch(`${API_BASE}/apiServices/autofill?lat=${latitude}&lng=${longitude}`);
+      if (!res.ok) throw new Error("Failed to fetch autofill data");
+
+      const data = await res.json();
+
+      // Autofill form fields
+      form.setValue("nitrogen", data.N.toString());
+      form.setValue("phosphorus", data.P.toString());
+      form.setValue("potassium", data.K.toString());
+      form.setValue("soilPh", data.soilPh.toString());
+      form.setValue("soilType", data.soilType);
+      form.setValue("temperature", data.temperature.toString());
+      form.setValue("humidity", data.humidity.toString());
+      form.setValue("rainfall", data.rainfall.toString());
+    } catch (err) {
+      console.error("Error autofilling data:", err);
+      alert("Failed to autofill farm conditions. Please enter manually.");
+    }
+  };
+
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
@@ -115,7 +145,7 @@ const CropRecommender = () => {
 
 
 
-  //console.log(`${values.temperature} `, ${values.humidity} , ${values.rainfall} , ${values.soilPh} , ${values.nitrogen} , ${values.phosphorus} , ${values.potassium} , ${values.soilType} , ${values.season})
+    //console.log(`${values.temperature} `, ${values.humidity} , ${values.rainfall} , ${values.soilPh} , ${values.nitrogen} , ${values.phosphorus} , ${values.potassium} , ${values.soilType} , ${values.season})
     try {
       const payload: CropRequest = {
         temperature: parseInt(values.temperature),
@@ -139,7 +169,7 @@ const CropRecommender = () => {
         image: "🌱", // TODO: Map actual emojis if needed
         short_detail: item.short_detail,
         long_detail: item.long_detail,
-        percent: item.percent,     
+        percent: item.percent,
       }));
 
       setRecommendations(formatted);
@@ -207,214 +237,239 @@ const CropRecommender = () => {
               <MapPin className="w-6 h-6 text-primary" />
               Farm Conditions
             </h2>
-            
+
             <Form {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {/* Temperature */}
-      <FormField
-        control={form.control}
-        name="temperature"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="flex items-center gap-2">
-              <Thermometer className="w-4 h-4 text-orange-500" />
-              Temperature (°C)
-            </FormLabel>
-            <FormControl>
-              <Input {...field} placeholder="25" className="agricultural-input" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Temperature */}
+                  <FormField
+                    control={form.control}
+                    name="temperature"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Thermometer className="w-4 h-4 text-orange-500" />
+                          Temperature (°C)
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="25" className="agricultural-input" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-      {/* Humidity */}
-      <FormField
-        control={form.control}
-        name="humidity"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="flex items-center gap-2">
-              <Droplets className="w-4 h-4 text-blue-500" />
-              Humidity (%)
-            </FormLabel>
-            <FormControl>
-              <Input {...field} placeholder="65" className="agricultural-input" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+                  {/* Humidity */}
+                  <FormField
+                    control={form.control}
+                    name="humidity"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Droplets className="w-4 h-4 text-blue-500" />
+                          Humidity (%)
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="65" className="agricultural-input" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-      {/* Rainfall */}
-      <FormField
-        control={form.control}
-        name="rainfall"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="flex items-center gap-2">
-              <Cloud className="w-4 h-4 text-cyan-500" />
-              Rainfall (mm)
-            </FormLabel>
-            <FormControl>
-              <Input {...field} placeholder="150" className="agricultural-input" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+                  {/* Rainfall */}
+                  <FormField
+                    control={form.control}
+                    name="rainfall"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Cloud className="w-4 h-4 text-cyan-500" />
+                          Rainfall (mm)
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="150" className="agricultural-input" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-      {/* Soil pH */}
-      <FormField
-        control={form.control}
-        name="soilPh"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="flex items-center gap-2">
-              <Beaker className="w-4 h-4 text-purple-500" />
-              Soil pH
-            </FormLabel>
-            <FormControl>
-              <Input {...field} placeholder="6.5" className="agricultural-input" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+                  {/* Soil pH */}
+                  <FormField
+                    control={form.control}
+                    name="soilPh"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Beaker className="w-4 h-4 text-purple-500" />
+                          Soil pH
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="6.5" className="agricultural-input" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-    {/* Soil Nutrients */}
-    <div className="space-y-4">
-      <h3 className="text-lg font-medium text-foreground flex items-center gap-2">
-        <Beaker className="w-5 h-5 text-primary" />
-        Soil Nutrients (kg/ha)
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Nitrogen */}
-        <FormField
-          control={form.control}
-          name="nitrogen"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nitrogen (N)</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="40" className="agricultural-input" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                {/* Soil Nutrients */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium text-foreground flex items-center gap-2">
+                    <Beaker className="w-5 h-5 text-primary" />
+                    Soil Nutrients (kg/ha)
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Nitrogen */}
+                    <FormField
+                      control={form.control}
+                      name="nitrogen"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nitrogen (N)</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="40" className="agricultural-input" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-        {/* Phosphorus */}
-        <FormField
-          control={form.control}
-          name="phosphorus"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phosphorus (P)</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="50" className="agricultural-input" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                    {/* Phosphorus */}
+                    <FormField
+                      control={form.control}
+                      name="phosphorus"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phosphorus (P)</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="50" className="agricultural-input" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
-        {/* Potassium */}
-        <FormField
-          control={form.control}
-          name="potassium"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Potassium (K)</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="60" className="agricultural-input" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-    </div>
+                    {/* Potassium */}
+                    <FormField
+                      control={form.control}
+                      name="potassium"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Potassium (K)</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="60" className="agricultural-input" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
 
-    {/* Dropdowns */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {/* Soil Type */}
-      <FormField
-        control={form.control}
-        name="soilType"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Soil Type</FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger className="agricultural-input">
-                  <SelectValue placeholder="Select soil type" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="sandy">Sandy</SelectItem>
-                <SelectItem value="clay">Clay</SelectItem>
-                <SelectItem value="loam">Loam</SelectItem>
-                <SelectItem value="silt">Silt</SelectItem>
-                <SelectItem value="peaty">Peaty</SelectItem>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+                {/* Dropdowns */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Soil Type */}
+                  <FormField
+                    control={form.control}
+                    name="soilType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Soil Type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="agricultural-input">
+                              <SelectValue placeholder="Select soil type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="sandy">Sandy</SelectItem>
+                            <SelectItem value="clay">Clay</SelectItem>
+                            <SelectItem value="loam">Loam</SelectItem>
+                            <SelectItem value="silt">Silt</SelectItem>
+                            <SelectItem value="peaty">Peaty</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-      {/* Season */}
-      <FormField
-        control={form.control}
-        name="season"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-green-500" />
-              Season
-            </FormLabel>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger className="agricultural-input">
-                  <SelectValue placeholder="Select season" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="spring">Spring</SelectItem>
-                <SelectItem value="summer">Summer</SelectItem>
-                <SelectItem value="autumn">Autumn</SelectItem>
-                <SelectItem value="winter">Winter</SelectItem>
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+                  {/* Season */}
+                  <FormField
+                    control={form.control}
+                    name="season"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-green-500" />
+                          Season
+                        </FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger className="agricultural-input">
+                              <SelectValue placeholder="Select season" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="spring">Spring</SelectItem>
+                            <SelectItem value="summer">Summer</SelectItem>
+                            <SelectItem value="autumn">Autumn</SelectItem>
+                            <SelectItem value="winter">Winter</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-    {/* Submit Button */}
-    <Button 
-      type="submit" 
-      disabled={isLoading}
-      className="agricultural-button w-full text-lg py-6"
-    >
-      {isLoading ? (
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin"></div>
-          Analyzing Conditions...
-        </div>
-      ) : (
-        <div className="flex items-center gap-2">
-          <Leaf className="w-5 h-5" />
-          Get AI Recommendations
-        </div>
-      )}
-    </Button>
-  </form>
-</Form>
+                {/* Submit Button */}
+                <Button
+                  type="button"
+                  onClick={() => {
+                    form.setValue("temperature", "29");
+                    form.setValue("humidity", "70");
+                    form.setValue("rainfall", "140");
+                    form.setValue("soilPh", "6.0");
+                    form.setValue("nitrogen", "45");
+                    form.setValue("phosphorus", "58");
+                    form.setValue("potassium", "63");
+                    form.setValue("soilType", "loam");
+                    form.setValue("season", "summer");
+                   
+                    form.trigger();
+                  }}
+                  variant="outline"
+                  className="w-full text-lg py-6 mb-4"
+                >
+                  <div className="flex items-center gap-2">
+                    <Leaf className="w-5 h-5" />
+                    Auto Fill Data
+                  </div>
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="agricultural-button w-full text-lg py-6"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-2 border-primary-foreground/20 border-t-primary-foreground rounded-full animate-spin"></div>
+                      Analyzing Conditions...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <Leaf className="w-5 h-5" />
+                      Get AI Recommendations
+                    </div>
+                  )}
+                </Button>
+
+
+              </form>
+            </Form>
 
           </motion.div>
 

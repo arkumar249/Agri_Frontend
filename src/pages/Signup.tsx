@@ -4,10 +4,7 @@ import { Eye, EyeOff, Sprout, Check, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
-
 const API_BASE = import.meta.env.VITE_BACKEND_API_BASE;
-
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +18,9 @@ const Signup = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "" // <-- Added role field
+    role: "",
+    mobile: "",   // <-- Added mobile
+    location: ""  // <-- Added location
   });
 
   const getPasswordStrength = (password: string) => {
@@ -51,7 +50,6 @@ const Signup = () => {
     return "Strong";
   };
 
-  // 🔹 Function to call backend API
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
@@ -63,30 +61,24 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      const payload={
-        "full_name":formData.name,
-        "email":formData.email,
-        "password":formData.password,
-        "role":"farmer"
-      }
-      const response = await axios.post(`${API_BASE}/auth/signup`, payload , {
+      const payload = {
+        full_name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role || "farmer",
+        mobile: formData.mobile,
+        location: formData.location
+      };
+
+      const response = await axios.post(`${API_BASE}/auth/signup`, payload, {
         headers: {
           "Content-Type": "application/json"
         }
-        
       });
 
+      if (!response.data) throw new Error("Signup failed");
 
-      if (!response.data) {
-        const errData = "Something went wrong";
-        throw new Error( "Signup failed");
-      }
-      console.log("response dtaa" , response.data);
-
-      const data = response.data;
-      console.log("✅ Signup successful:", data);
-
-      // Redirect user to login page after signup
+      console.log("✅ Signup successful:", response.data);
       navigate("/login");
     } catch (err: any) {
       setErrorMsg(err.message);
@@ -131,9 +123,7 @@ const Signup = () => {
             <input
               type="text"
               value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your full name"
               required
@@ -148,11 +138,39 @@ const Signup = () => {
             <input
               type="email"
               value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          {/* Mobile Number */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Mobile Number
+            </label>
+            <input
+              type="tel"
+              value={formData.mobile}
+              onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+              className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Enter your mobile number"
+              required
+            />
+          </div>
+
+          {/* Location */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Location
+            </label>
+            <input
+              type="text"
+              value={formData.location}
+              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Enter your location"
               required
             />
           </div>
@@ -165,9 +183,7 @@ const Signup = () => {
             <input
               type="text"
               value={formData.role}
-              onChange={(e) =>
-                setFormData({ ...formData, role: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, role: e.target.value })}
               className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
               placeholder="Enter your role (e.g. farmer, agronomist)"
               required
@@ -183,9 +199,7 @@ const Signup = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 className="w-full px-4 py-3 pr-12 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="Create a password"
                 required
@@ -203,9 +217,7 @@ const Signup = () => {
               <div className="mt-2 flex items-center gap-2">
                 <div className="flex-1 bg-gray-200 rounded-full h-2">
                   <div
-                    className={`h-2 rounded-full ${getStrengthColor(
-                      passwordStrength
-                    )}`}
+                    className={`h-2 rounded-full ${getStrengthColor(passwordStrength)}`}
                     style={{ width: `${(passwordStrength / 5) * 100}%` }}
                   />
                 </div>
@@ -223,9 +235,7 @@ const Signup = () => {
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 value={formData.confirmPassword}
-                onChange={(e) =>
-                  setFormData({ ...formData, confirmPassword: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                 className="w-full px-4 py-3 pr-12 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="Confirm your password"
                 required
@@ -244,16 +254,12 @@ const Signup = () => {
                 {passwordsMatch ? (
                   <>
                     <Check className="w-4 h-4 text-green-500" />
-                    <span className="text-sm text-green-600">
-                      Passwords match
-                    </span>
+                    <span className="text-sm text-green-600">Passwords match</span>
                   </>
                 ) : (
                   <>
                     <X className="w-4 h-4 text-red-500" />
-                    <span className="text-sm text-red-600">
-                      Passwords don't match
-                    </span>
+                    <span className="text-sm text-red-600">Passwords don't match</span>
                   </>
                 )}
               </div>

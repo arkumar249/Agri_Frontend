@@ -6,7 +6,7 @@ import {
   DollarSign, 
   BarChart3, 
   Calendar,
-  Target,
+  
   AlertCircle,
   RefreshCw
 } from "lucide-react";
@@ -22,8 +22,6 @@ const MarketAnalyst = () => {
       currentPrice: 45.50,
       change: 2.3,
       trend: "up",
-      recommendation: "Hold - Prices expected to rise by 12% in 2 weeks",
-      confidence: 85,
       priceHistory: [
         { date: "Jan", price: 42 },
         { date: "Feb", price: 44 },
@@ -37,8 +35,6 @@ const MarketAnalyst = () => {
       currentPrice: 38.20,
       change: -1.5,
       trend: "down",
-      recommendation: "Sell Now - Expected decline of 8% next month",
-      confidence: 78,
       priceHistory: [
         { date: "Jan", price: 40 },
         { date: "Feb", price: 39 },
@@ -52,8 +48,6 @@ const MarketAnalyst = () => {
       currentPrice: 52.75,
       change: 4.2,
       trend: "up",
-      recommendation: "Buy More - Strong upward trend continues",
-      confidence: 92,
       priceHistory: [
         { date: "Jan", price: 48 },
         { date: "Feb", price: 49 },
@@ -75,17 +69,6 @@ const MarketAnalyst = () => {
 
   const currentCropData = marketData[selectedCrop as keyof typeof marketData];
 
-  const getRecommendationColor = (recommendation: string) => {
-    if (recommendation.includes("Buy") || recommendation.includes("Hold")) return "text-green-700";
-    if (recommendation.includes("Sell")) return "text-red-700";
-    return "text-yellow-700";
-  };
-
-  const getRecommendationBg = (recommendation: string) => {
-    if (recommendation.includes("Buy") || recommendation.includes("Hold")) return "bg-green-50 border-green-200";
-    if (recommendation.includes("Sell")) return "bg-red-50 border-red-200";
-    return "bg-yellow-50 border-yellow-200";
-  };
 
   return (
     <div className="min-h-full bg-background p-6">
@@ -194,12 +177,6 @@ const MarketAnalyst = () => {
                   <div className="text-sm text-muted-foreground">24h change</div>
                 </div>
                 
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-foreground mb-1">
-                    {currentCropData.confidence}%
-                  </div>
-                  <div className="text-sm text-muted-foreground">AI confidence</div>
-                </div>
               </div>
 
               {/* Price Chart */}
@@ -286,38 +263,6 @@ const MarketAnalyst = () => {
             transition={{ delay: 0.3 }}
             className="space-y-6"
           >
-            {/* AI Recommendation */}
-            <div className={`agricultural-card p-6 border ${getRecommendationBg(currentCropData.recommendation)}`}>
-              <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-3">
-                <Target className="w-5 h-5 text-primary" />
-                AI Recommendation
-              </h3>
-              
-              <motion.div
-                initial={{ scale: 0.95 }}
-                animate={{ scale: 1 }}
-                className="space-y-4"
-              >
-                <div className={`text-lg font-semibold ${getRecommendationColor(currentCropData.recommendation)}`}>
-                  {currentCropData.recommendation}
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Confidence Level</span>
-                    <span className="font-medium">{currentCropData.confidence}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${currentCropData.confidence}%` }}
-                      transition={{ delay: 0.5, duration: 1 }}
-                      className="bg-green-600 h-2 rounded-full"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            </div>
 
             {/* Market Insights */}
             <div className="agricultural-card p-6">

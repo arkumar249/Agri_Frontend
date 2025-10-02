@@ -75,28 +75,27 @@ The system integrates multiple modules into a seamless farmer experience:
 ---
 
 ## Screenshots  
-- Dashboard  
+- Chat Interface
+  ![chat](./public/assets/screenshots/chatInterface01.png) 
 - Pest Detection Advisory  
 
 ---
 
 ## Repository Structure  
 
-Agri_Frontend/
-├── public/ # Static assets (icons, logos, images)
+```Agri_Frontend/
+├── public/
 ├── src/
-│ ├── components/ # Reusable UI components
-│ ├── pages/ # Page-level views (Dashboard, Advisory, Market, Profile, etc.)
-│ ├── services/ # API service calls
-│ ├── hooks/ # Custom React hooks
-│ ├── utils/ # Helper functions
-│ ├── styles/ # CSS / Tailwind styles
-│ └── App.tsx # App entry point
+│ ├── components/ 
+│ ├── pages/
+│ ├── hooks/ 
+│ ├── utils/ 
+│ ├── styles/ 
+│ └── App.tsx
 ├── package.json
 └── README.md
+```
 
-yaml
-Copy code
 
 ---
 

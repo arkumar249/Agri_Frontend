@@ -55,8 +55,8 @@ The system integrates multiple modules into a seamless farmer experience:
 - Farmers receive outputs in their local language with confidence scores, visuals, personalized alerts, and reminders.  
 - Feedback loops ensure continuous learning and refinement.
 
-###Architecture Diagram
-![Architecture Diagram]()
+### Architecture Diagram
+![Architecture Diagram](./public/assets/screenshots/Architecture.png)
 
 ---
 

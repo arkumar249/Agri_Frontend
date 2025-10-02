@@ -53,7 +53,10 @@ The system integrates multiple modules into a seamless farmer experience:
 - Inputs are processed by the RAG Pipeline (retrieval + agentic AI + LLM).  
 - Specialized modules handle crop recommendations, pest detection, weather alerts, market data, and government schemes.  
 - Farmers receive outputs in their local language with confidence scores, visuals, personalized alerts, and reminders.  
-- Feedback loops ensure continuous learning and refinement.  
+- Feedback loops ensure continuous learning and refinement.
+
+###Architecture Diagram
+![Architecture Diagram]()
 
 ---
 
@@ -75,9 +78,19 @@ The system integrates multiple modules into a seamless farmer experience:
 ---
 
 ## Screenshots  
-- Chat Interface
-  ![chat](./public/assets/screenshots/chatInterface01.png) 
-- Pest Detection Advisory  
+### Chat Interface
+  ![chat1](./public/assets/screenshots/chatInterface01.png)
+  ![chat2](./public/assets/screenshots/chatInterface02.png)  
+### Pest Detection Advisory
+   ![Pest](./public/assets/screenshots/PestDisease.png)
+### Activity Planner
+   ![Planner](./public/assets/screenshots/ActivityPlanner.png)
+### Notification
+ ![Notification](./public/assets/screenshots/NotificationAlert.png)
+### Profile
+   ![Profile](./public/assets/screenshots/profile.png)
+### Fertilizer Guide
+   ![Fertilizer](./public/assets/screenshots/FertilizerGuide.png)   
 
 ---
 

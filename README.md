@@ -64,7 +64,6 @@ The system integrates multiple modules into a seamless farmer experience:
 
 - *Frontend Framework:* React + Vite + TypeScript  
 - *Styling:* Tailwind CSS  
-- *Charts & Visualization:* Recharts / Chart.js  
 - *State Management:* React Context API  
 - *APIs Integrated:*  
   - Weather & Disaster Alerts
@@ -88,7 +87,7 @@ The system integrates multiple modules into a seamless farmer experience:
 ### Notification
  ![Notification](./public/assets/screenshots/NotificationAlert.png)
 ### Profile
-   ![Profile](./public/assets/screenshots/profile.png)
+   ![Profile](./public/assets/screenshots/Profile.png)
 ### Fertilizer Guide
    ![Fertilizer](./public/assets/screenshots/FertilizerGuide.png)   
 

@@ -64,9 +64,11 @@ The system integrates multiple modules into a seamless farmer experience:
 - *Charts & Visualization:* Recharts / Chart.js  
 - *State Management:* React Context API  
 - *APIs Integrated:*  
-  - Weather & Disaster Alerts  
+  - Weather & Disaster Alerts
+  - Pest/Disease Detection
   - Crop and Fertiliser Recommenders  
-  - Government Schemes API  
+  - Government Schemes API
+  - Learning Hub/SHG 
   - Market Price/Analyst API  
 - *Backend AI:* RAG Pipeline, ML Models, CNN Models, Agentic AI System  
 

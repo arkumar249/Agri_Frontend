@@ -1,6 +1,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import  AppSidebar  from "./AppSidebar";
 import { motion } from "framer-motion";
+import NotificationModal from "./NotificationModal";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -24,11 +25,12 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">🌱</span>
               </div>
-              <h1 className="text-xl font-semibold text-foreground">AgriBot</h1>
+              <h1 className="text-xl font-semibold text-foreground">AgriNOVA</h1>
             </div>
           </div>
           
           <div className="flex items-center gap-3">
+            <NotificationModal />
             <div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
               <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
               AI Assistant Online

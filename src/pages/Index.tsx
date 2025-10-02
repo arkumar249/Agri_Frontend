@@ -36,9 +36,9 @@ const Index = () => {
     },
     {
       icon: Calendar,
-      title: "Irrigation Planner",
+      title: "Activity Planner",
       description: "Plan your irrigation schedule with AI-powered insights.",
-      href: "/irrigation-planner",
+      href: "/activity-planner",
       color: "text-cyan-500"
     }
   ];
@@ -54,7 +54,7 @@ const Index = () => {
       
       {/* Navbar */}
       <header className="w-full flex justify-between items-center px-6 py-4 absolute top-0 left-0">
-        <div className="text-2xl font-bold text-foreground">🌱 AgriBot</div>
+        <div className="text-2xl font-bold text-foreground">🌱 AgriNOVA</div>
        
       </header>
       
@@ -78,7 +78,7 @@ const Index = () => {
             <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Welcome to{" "}
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                AgriBot
+                AgriNOVA
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -203,7 +203,7 @@ const Index = () => {
               Ready to Transform Your Farm?
             </h2>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join thousands of farmers already using AgriBot to increase yields 
+              Join thousands of farmers already using AgriNOVA to increase yields 
               and optimize their farming operations.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

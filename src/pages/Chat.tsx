@@ -422,7 +422,7 @@ function formatSpeech(content: string) {
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 0 ? (
           <div className="h-full flex items-center justify-center text-muted-foreground text-lg text-center">
-            {emptyMessages[chat_bot_state] || "Start a conversation with AgriBot 🌿"}
+            {emptyMessages[chat_bot_state] || "Start a conversation with AgriNOVA 🌿"}
           </div>
         ) : (
           <AnimatePresence>
@@ -598,7 +598,7 @@ function formatSpeech(content: string) {
         )}
 
         <p className="text-xs text-muted-foreground text-center mt-3 max-w-4xl mx-auto">
-          AgriBot is powered by AI and provides farming guidance. Always consult
+          AgriNOVA is powered by AI and provides farming guidance. Always consult
           with local agricultural experts for critical decisions.
         </p>
       </motion.div>

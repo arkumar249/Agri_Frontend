@@ -84,10 +84,8 @@ const generateMockActivities = () => {
   
   return activities;
 };
-
-// Mock API functions (replace with real API calls later)
 const fetchActivitiesByMonth = async (month: number, year: number) => {
-  // Simulate API delay
+
   await new Promise(resolve => setTimeout(resolve, 100));
   
   const mockData = generateMockActivities();
@@ -525,22 +523,7 @@ const DailyActivityTracker = () => {
             </div>
 
             {/* AI Suggestions */}
-            <div className="agricultural-card p-6">
-              <h3 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-3">
-                <TrendingUp className="w-5 h-5 text-primary" /> AI Suggestions
-              </h3>
-              <div className="space-y-4">
-                {recommendations.map((rec, index) => (
-                  <motion.div key={index} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} className="flex gap-3 p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
-                    <div className="p-2 bg-background rounded">{rec.icon}</div>
-                    <div>
-                      <h4 className="font-medium text-foreground text-sm">{rec.title}</h4>
-                      <p className="text-muted-foreground text-xs leading-relaxed">{rec.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+           
           </motion.div>
         </div>
       </div>

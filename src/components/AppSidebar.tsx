@@ -69,7 +69,7 @@ const AppSidebar = () => {
           </div>
           {state === "expanded" && (
             <div>
-              <h2 className="text-lg font-bold text-foreground">AgriBot</h2>
+              <h2 className="text-lg font-bold text-foreground">AgriNOVA</h2>
               <p className="text-sm text-muted-foreground">Smart Farming Assistant</p>
             </div>
           )}

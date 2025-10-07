@@ -1,3 +1,13 @@
+
+<div align="center">
+   <img src="AGRINOVA__logo.png" alt="AgriNOVA Logo" width="180" height="180" />
+
+  
+  <h1>AgriNOVA: AI-Powered Personal Farming Assistant</h1>
+</div>
+
+---
+
 # AgriNOVA Frontend – AI-Powered Personal Farming Assistant  
 
 AgriNOVA is an AI-powered Personal Farming Assistant.  
